@@ -17,13 +17,13 @@ class Board:
         pygame.draw.circle(screen, (0, 150, 0), (600,281), 2)
 
         font = pygame.font.Font('FiraSans-Black.ttf', 36)
-        text = font.render("You'r Pick", True, (20, 150, 20), (255, 255, 255))
+        text = font.render("You'r Pick", True, (20, 150, 20), (200, 255, 200))
         textrec = text.get_rect()
         textrec.center = (400,310)
         screen.blit(text, textrec)
 
         font = pygame.font.Font('FiraSans-Black.ttf', 36)
-        text = font.render("Opponent's Pick", True, (20, 150, 20), (255, 255, 255))
+        text = font.render("Opponent's Pick", True, (20, 150, 20), (200, 255, 200))
         textrec = text.get_rect()
         textrec.center = (400,250)
         screen.blit(text, textrec)
@@ -31,8 +31,11 @@ class Board:
         pygame.display.flip()
 
 
-    def draw_pick(self, screen, x, y):
-        pick = ""
+    def draw_pick(self, screen, enemy, x, y):
+        if enemy:
+            pick, pos = None, (315,50)
+        else:
+            pick, pos = None, (315,335)
         if 550 < y < 725:
             if 100 < x < 275:
                 pick = 'rock'
@@ -40,7 +43,11 @@ class Board:
                 pick = 'paper'
             if 525 < x < 700:
                 pick = 'scissors'
-        item = pygame.transform.scale(pygame.image.load(f"images/{pick}.png"), (175, 175))
-        screen.blit(item, (315,335))
-        pygame.display.flip()
+            item = pygame.transform.scale(pygame.image.load(f"images/{pick}.png"), (175, 175))
+            screen.blit(item, pos)
+            pygame.display.flip()
         return pick
+
+    def draw_enemy_pick(self, screen, pick):
+        pieces = {'rock': 180, 'paper': 400, 'scissors': 612}
+        self.draw_pick(screen, True, pieces[pick], 600)
