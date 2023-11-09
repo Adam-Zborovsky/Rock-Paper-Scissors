@@ -5,10 +5,6 @@ from Board import Board
 SCREEN_SIZE = (800, 800)
 
 
-def timer():
-    pass
-
-
 def check_winner(screen, my_pick, enm):
     if my_pick == 'rock' and enm == 'scissors' or my_pick == 'paper' and enm == 'rock' or my_pick == 'scissors' and enm == 'paper':
         text = 'You Won'
@@ -42,7 +38,7 @@ def game():
     pygame.display.flip()
     board = Board()
     board.draw(screen)
-
+    
     while running:
         for event in pygame.event.get():
 
@@ -62,7 +58,7 @@ def game():
                 screen.fill((200, 255, 200))
                 board.draw(screen)
                 my_pick = None
-
+        
 
 if __name__ == '__main__':
     game()
